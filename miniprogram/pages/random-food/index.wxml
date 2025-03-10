@@ -1,0 +1,96 @@
+<view class="container">
+  <view class="header">
+    <text class="title">今天吃什么?</text>
+  </view>
+
+  <view class="menu-section">
+    <view class="menu-header">
+      <text class="menu-title">我的菜单</text>
+      <view class="btn-wrapper">
+        <button class="add-btn" bindtap="showAddModal">+ 添加菜品</button>
+      </view>
+    </view>
+
+    <view class="food-grid">
+      <view wx:if="{{foodList.length === 0}}" class="empty-tip">
+        <text>还没有添加菜品哦～</text>
+      </view>
+      <view wx:for="{{foodList}}" wx:key="id" class="food-card">
+        <text class="food-name">{{item.name}}</text>
+        <view class="delete-btn" bindtap="showDeleteConfirm" data-id="{{item.id}}" data-name="{{item.name}}">×</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="result-section" wx:if="{{showResult}}">
+    <view class="result">
+      <text class="result-text">今天吃：</text>
+      <text class="result-food-name">{{selectedFood.name}}</text>
+    </view>
+  </view>
+
+  <button class="random-btn" bindtap="randomSelect">随机选择</button>
+
+  <!-- 添加菜品弹窗 -->
+  <view class="modal {{showModal ? 'show' : ''}}" wx:if="{{showModal}}">
+    <view class="modal-mask" bindtap="hideAddModal"></view>
+    <view class="modal-content add-modal">
+      <view class="modal-header">
+        <text class="modal-title">添加新菜品</text>
+        <view class="close-btn" bindtap="hideAddModal">
+          <text class="close-icon">×</text>
+        </view>
+      </view>
+      <view class="modal-body">
+        <input 
+          class="food-input" 
+          placeholder="请输入菜品名称" 
+          value="{{newFood}}" 
+          bindinput="onInput"
+          focus="{{showModal}}"
+        />
+      </view>
+      <view class="modal-footer">
+        <button class="cancel-btn" bindtap="hideAddModal">取消</button>
+        <button class="confirm-btn" bindtap="addFood">确认添加</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 删除确认弹窗 -->
+  <view class="modal {{showDeleteModal ? 'show' : ''}}" wx:if="{{showDeleteModal}}">
+    <view class="modal-mask" bindtap="hideDeleteConfirm"></view>
+    <view class="modal-content delete-modal">
+      <view class="modal-header">
+        <text class="modal-title">确认删除</text>
+        <view class="close-btn" bindtap="hideDeleteConfirm">
+          <text class="close-icon">×</text>
+        </view>
+      </view>
+      <view class="modal-body">
+        <text class="delete-tip">确定要删除"{{deleteFoodName}}"吗？</text>
+      </view>
+      <view class="modal-footer">
+        <button class="cancel-btn" bindtap="hideDeleteConfirm">取消</button>
+        <button class="confirm-btn delete-confirm-btn" bindtap="confirmDelete">确认删除</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 修改结果弹窗部分 -->
+  <view class="modal {{showResult ? 'show' : ''}}" wx:if="{{showResult}}">
+    <view class="modal-mask" bindtap="hideResult"></view>
+    <view class="modal-content result-modal">
+      <view class="modal-header">
+        <text class="modal-title">随机结果</text>
+        <view class="close-btn" bindtap="hideResult">
+          <text class="close-icon">×</text>
+        </view>
+      </view>
+      <view class="modal-body result-body">
+        <text class="result-text">今天吃：</text>
+        <text class="result-food-name">{{selectedFood.name}}</text>
+      </view>
+    </view>
+  </view>
+</view> 

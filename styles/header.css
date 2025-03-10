@@ -1,0 +1,15 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;  /* 移除水平内边距 */
+  margin: 0 16px;   /* 改用外边距 */
+}
+
+.add-button {
+  padding: 6px 12px;
+  background-color: #00C853;
+  color: white;
+  border: none;
+  border-radius: 4px;
+} 
